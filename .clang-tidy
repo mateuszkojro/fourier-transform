@@ -26,7 +26,7 @@ WarningsAsErrors: "*"
 
 # Stolen dont know yet what it means
 # HeaderFilterRegex: "(google/cloud/|generator/).*\\.h$"
-
+MinimumVariableNameLength: 0
 CheckOptions:
   - { key: readability-identifier-naming.NamespaceCase,          value: lower_case }
   - { key: readability-identifier-naming.ClassCase,              value: CamelCase  }
