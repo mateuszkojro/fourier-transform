@@ -12,8 +12,10 @@
 #include "TGraph.h"
 #include "TH1.h"
 #include "TRootCanvas.h"
+#include "TMultiGraph.h"
 #include <TVirtualFFT.h>
 #endif
+
 
 template<class T>
 struct FunctionPlot
