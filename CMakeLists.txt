@@ -191,7 +191,7 @@ endif()
 endif()
 
 # List of all source files to compile and link
-set(SOURCES src/main.cpp src/ranges.h src/plot.h)
+set(SOURCES src/main.cpp src/ranges.h src/plot.h src/fourier.h)
 
 # List of folders contatinig header files
 set(INCLUDE_DIRS include)
