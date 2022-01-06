@@ -9,28 +9,26 @@
 #include <vector>
 namespace fourier {
 
-const double kPi = 3.1415;
+///
+/// \param signal
+/// \return
+std::vector<std::complex<double>> dft(const std::vector<double>& signal);
 
 ///
 /// \param signal
-/// \param freq
 /// \return
-std::complex<double> dft(const std::vector<double>& signal, double freq);
+std::vector<double> ift(const std::vector<std::complex<double>>& signal);
 
 ///
 /// \param signal
-/// \param x
 /// \return
-double ift(const std::vector<std::complex<double>>& signal, double x);
-
-///
-/// \param signal
-/// \param x
-/// \return
-double fft(const std::vector<std::complex<double>>& signal, double x);
+double fft(const std::vector<std::complex<double>>& signal);
 
 #ifdef FOURIER_IMPLEMENTATIONS
-std::complex<double> dft(const std::vector<double>& signal, double freq) {
+
+static const double kPi = 3.1415;
+
+std::complex<double> dft_impl(const std::vector<double>& signal, double freq) {
   using namespace std::complex_literals;
 
   std::complex<double> result = 0;
@@ -44,7 +42,16 @@ std::complex<double> dft(const std::vector<double>& signal, double freq) {
   return 1. / N * result;
 }
 
-double ift(const std::vector<std::complex<double>>& signal, double x) {
+std::vector<std::complex<double>> dft(const std::vector<double>& signal) {
+  std::vector<std::complex<double>> tramsformed(signal.size());
+
+  for (int x = 0; x < signal.size(); x++) {
+	tramsformed[x] = dft_impl(signal, x);
+  }
+  return tramsformed;
+}
+
+double ift_impl(const std::vector<std::complex<double>>& signal, double x) {
   using namespace std::complex_literals;
 
   std::complex<double> result = 0;
@@ -57,6 +64,12 @@ double ift(const std::vector<std::complex<double>>& signal, double x) {
 
   // The imaginary component is equal to 0
   return result.real();
+}
+
+std::vector<double> ift(const std::vector<std::complex<double>>& signal) {
+  std::vector<double> reversed(signal.size());
+  for (int x = 0; x < signal.size(); x++) { reversed[x] = ift_impl(signal, x); }
+  return reversed;
 }
 
 double fft(const std::vector<std::complex<double>>& signal) {
