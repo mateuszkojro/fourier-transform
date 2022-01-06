@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(application_name VERSION 0.0.1)
+project(fourier-transform VERSION 0.0.1)
 
 message("")
 message("=== CONFIGURING ENVIROMENT ${CMAKE_PROJECT_NAME} - START  ===")
@@ -13,9 +13,10 @@ option(BUILD_DOCS "Build documentation" OFF)
 option(BUILD_BENCHMARKS "Build benchmarks" OFF)
 
 option(WITH_EIGEN "Enable Eigen support" OFF)
-option(WITH_ROOT "Enable ROOT support" OFF)
+option(WITH_ROOT "Enable ROOT support" ON)
 option(WITH_BOOST "Enable BOOST support" OFF)
 option(WITH_SCIPLOT "Enable Scilplot support" OFF)
+option(WITH_TESTS "Enable testing" ON)
 option(BUILD_TYPE "Build type" "Release")
 
 
@@ -78,6 +79,23 @@ set(CMAKE_CXX_STANDARD 14)
 set(LIBRARIES_TO_LINK)
 set(FILES_TO_COPY_TO_BUILD_DIR)
 
+if(${WITH_TESTS})
+    message(CHECK_START "Downloading GTest")
+    include(FetchContent)
+    FetchContent_Declare(
+            googletest
+            # Specify the commit you depend on and update it regularly.
+            URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+    )
+    # For Windows: Prevent overriding the parent project's compiler/linker settings
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+
+    # Now simply link against gtest or gtest_main as needed. Eg
+    list(APPEND LIBRARIES_TO_LINK gtest_main)
+    message(CHECK_PASS "done")
+endif()
+
 if(${WITH_EIGEN})
 message(CHECK_START "Looking for Eigen")
 set(EIGEN_DIR ${CMAKE_SOURCE_DIR}/lib/eigen/)
@@ -92,16 +110,17 @@ else()
     message(CHECK_FAIL "not found")
 endif()
 endif()
-
+message(${WITH_ROOT})
 if(${WITH_ROOT})
 message(CHECK_START "Looking for ROOT")
 # Full list of avaliable ROOT libraries 
 # https://cliutils.gitlab.io/modern-cmake/chapters/packages/ROOT.html
-find_package(ROOT CONFIG)
+#set(CMAKE_CXX_PRE)
+find_package(ROOT CONFIG REQUIRED)
 if(${ROOT_FOUND} AND ${WITH_ROOT})
     include(${ROOT_USE_FILE})
     include_directories(${ROOT_INCLUDE_DIRS})
-    list(APPEND LIBRARIES_TO_LINK ROOT::Core ROOT::Gui)
+    list(APPEND LIBRARIES_TO_LINK ROOT::Core ROOT::Gui ROOT::MathCore)
     add_compile_definitions(MK_WITH_ROOT)
     message(CHECK_PASS "found")
 else()
@@ -172,7 +191,7 @@ endif()
 endif()
 
 # List of all source files to compile and link
-set(SOURCES src/main.cpp)
+set(SOURCES src/main.cpp src/ranges.h src/plot.h)
 
 # List of folders contatinig header files
 set(INCLUDE_DIRS include)
@@ -184,6 +203,12 @@ add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${LIBRARIES_TO_LINK})
+
+if(${WITH_TESTS})
+    add_executable(tests test/test_main.cpp)
+    target_link_libraries(tests gtest_main)
+    add_test(NAME all COMMAND tests)
+endif()
 
 # foreach(FILE FILES_TO_COPY_TO_BUILD_DIR)
 # add_custom_command(
