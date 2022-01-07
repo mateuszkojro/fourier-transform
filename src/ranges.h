@@ -11,6 +11,22 @@
  * !! This is not optimised for performance !!
  */
 
+template<class T>
+static std::vector<T> cut(const std::vector<T>& vec, size_t to) {
+
+  std::vector<double> result;
+  result.reserve(to);
+
+  for (size_t i = 0; i < to; i++) { result.push_back(vec[i]); }
+  return result;
+}
+
+static std::vector<double> abs(const std::vector<std::complex<double>>& vec) {
+  std::vector<double> result(vec.size());
+  for (size_t i = 0; i < vec.size(); i++) { result[i] = abs(vec[i]); }
+  return result;
+}
+
 static std::vector<double> linspace(double (*f)(double), double from, double to,
 									int samples) {
 
@@ -22,11 +38,21 @@ static std::vector<double> linspace(double (*f)(double), double from, double to,
   return results;
 }
 
-std::vector<int64_t> range(int64_t from, int64_t to, int64_t step = 1) {
-  std::vector<int64_t> result;
+static std::vector<double> linspace(double from, double to, int samples) {
+  return linspace([](double x) { return x; }, from, to, samples);
+}
+
+template<class T>
+std::vector<T> range(int64_t from, int64_t to, int64_t step = 1) {
+  std::vector<T> result;
   result.reserve((to - from) / step);
-  for (int64_t i = from; i < to; i += step) { result.push_back(i); }
+  for (T i = from; i < to; i += step) { result.push_back(i); }
   return result;
+}
+
+template<class T>
+std::vector<T> range(int64_t to) {
+  return range<T>(0, to, 1);
 }
 
 std::vector<std::pair<double, double>> zip(const std::vector<double>& v1,

@@ -1,13 +1,23 @@
 #include <complex>
 #include <fstream>
 #include <vector>
-
 #define FOURIER_IMPLEMENTATIONS
 #define FOURIER_WITH_FFT 1
 
 #include "fourier.h"
-#include "plot.h"
 #include "ranges.h"
+
+#ifdef MK_WITH_ROOT
+#include "TApplication.h"
+#include "TCanvas.h"
+#include "TF1.h"
+#include "TGraph.h"
+#include "TH1.h"
+#include "TMultiGraph.h"
+#include "TRootCanvas.h"
+#include "TStyle.h"
+#include <TVirtualFFT.h>
+#endif
 
 std::vector<double> parse_file(std::istream& stream) {
 
@@ -55,24 +65,30 @@ int main(int argc, char* argv[]) {
 	inverse_fft_graph.AddPoint(pair.first, pair.second);
   }
 
+  canvas.SetMargin(0,0,0,0);
   canvas.cd(1);
   m_graph.Add(&inverse_graph);
   m_graph.Add(&original_graph);
-//  m_graph.Add(&inverse_fft_graph);
+  //  m_graph.Add(&inverse_fft_graph);
   m_graph.Draw("apl");
 
   canvas.cd(2);
-  for (auto& pair : enumerate(transformed)) {
-	transfomred_graph.AddPoint(pair.first, abs(pair.second));
-  }
+    for (auto& pair : enumerate(transformed)) {
+  	transfomred_graph.AddPoint(pair.first, abs(pair.second));
+    }
   transfomred_graph.Draw();
 
-//  canvas.cd(3);
-//  for (auto& pair : enumerate(fourier::fft(wave_sum))) {
-//	fft_graph.AddPoint(pair.first, abs(pair.second));
-//  }
-//  fft_graph.Draw();
+  //  canvas.cd(3);
+  //  for (auto& pair : enumerate(fourier::fft(wave_sum))) {
+  //	fft_graph.AddPoint(pair.first, abs(pair.second));
+  //  }
+  //  fft_graph.Draw();
+  gStyle->SetPaperSize(15, 30.);
+  gStyle->SetPadRightMargin(1);
+  gStyle->SetPadLeftMargin(1);
+  gStyle->SetTextFont(12);
 
+  canvas.Print("../report/hpx.tex");
   canvas.Draw();
   app.Run();
 #endif

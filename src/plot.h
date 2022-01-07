@@ -5,16 +5,6 @@
 #ifndef FOURIER_TRANSFORM__PLOT_H_
 #define FOURIER_TRANSFORM__PLOT_H_
 
-#ifdef MK_WITH_ROOT
-#include "TApplication.h"
-#include "TCanvas.h"
-#include "TF1.h"
-#include "TGraph.h"
-#include "TH1.h"
-#include "TRootCanvas.h"
-#include "TMultiGraph.h"
-#include <TVirtualFFT.h>
-#endif
 
 
 template<class T>

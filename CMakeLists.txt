@@ -200,9 +200,12 @@ set(INCLUDE_DIRS include)
 include_directories(${INCLUDE_DIRS})
 
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
-
-
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${LIBRARIES_TO_LINK})
+
+add_executable(raw_signal src/raw_signals.cpp)
+target_link_libraries(raw_signal PUBLIC ${LIBRARIES_TO_LINK})
+
+
 
 if(${WITH_TESTS})
     add_executable(tests test/test_main.cpp)
