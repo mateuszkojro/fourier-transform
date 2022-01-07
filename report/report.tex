@@ -27,25 +27,37 @@ funkcji z dziedziny czasu (np.\ przebiegi natężenia dźwięku w czasie) na fun
 \end{equation}
 
 gdzie $i$ oznacza jednostkę urojoną a jeżeli $x$ oznacza wartości należące do dziedziny badanej funkcji (W przykładzie badania natężenia dźwięku od czasu będzie miał jednostkę czasu), $f(x)$ jest wartością badanej funkcji dla danego $x$ a $\xi$ oznacza częstotliwość (w przypadku gdy $x$ jest czasem mierzonym w sekundach $\xi$ będzie miało jednostkę Hz)
-
+q
 % TODO: Poco sie to robi 
 
 \subsection{Odwrotna transformata Fouriera}
 
-W niektórych sytuacjach możliwe jest odwrócenie transformaty w celu uzyskania oryginalnego sygnału
+W niektórych sytuacjach możliwe jest odwrócenie transformaty w celu uzyskania oryginalnego sygnału za pomocą tzw. odwrotnej transformaty Fouriera opisanej wzorem:
 
+\begin{equation}
+f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp{(2 \pi i x \xi)} \ d\xi, \ \ \forall x \in \mathbb{R}
+\end{equation}
+
+gdzie $\hat{f}$ oznacza wynik transformaty fouriera dla funkcji $f$
 
 \subsection{Transformaty wielowymiarowe}
 
-\subsection{Dyskretne transformaty Fouriera}
+Transformata Fouriera może zostać uogólniona do $n$ wymiarów korzystając z wzoru:
 
+\begin{equation}
+    \hat{f}(k) = \frac{1}{{(2\pi)}^\frac{n}{2}} \int f(r) \exp{(-ikr)} d^n r
+\end{equation}
 
+w którym $k=[k_1,k_2,\ldots, k_n]$
 
+\subsection*{Dyskretne transformaty Fouriera}
+Dyskretyzacja transformaty Fouriera pozwala na zastosowanie tradycyjnej transformaty do analizy sygnalów mierzonych przez instrumenty (instrument pomiarowy generować będzie dyskretne próbki danych a nie ciągłą funkcje).
+Dyskretna transformatę możemy opisać za pomocą sumy przekształcającej ciąg próbek jakiegoś sygnału $[x_0, x_1, \ldots, x_{N-1}]$ gdzie $x_i \in \mathbb{R}$ w ciąg harmonicznych tego sygnału oznaczanych: $[X_0, X_1, \ldots, X_{N-1}]$ gdzie $X_n \in \mathbb{C}$ danej wzorem:
 
+\begin{equation}
+    X_k = \sum_{n=0}^{N-1} x_n \exp{\left(\frac{-i k n 2\pi}{N}\right)} , \ 0 \le k \le N - 1
+\end{equation}
 
-
-
-\section{Transformaty Dyskretne}
-
+gdzie 
 
 \end{document}
