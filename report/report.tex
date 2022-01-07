@@ -8,6 +8,14 @@
 \usepackage{graphicx,float}
 \usepackage{circuitikz}
 
+
+\usepackage{csquotes}
+\usepackage[style=numeric]{biblatex}
+\addbibresource{references.bib}
+
+
+\graphicspath{ {./imgs/} }
+
 \title{Transformata Fouriera}
 \author{Mateusz Kojro}
 \date{}
@@ -20,39 +28,29 @@
 
 \subsection{Transformata Fouriera}
 Transformacje Fourierowskie to dziedzina transformacji pozwalających na przekształcanie
-funkcji z dziedziny czasu (np.\ przebiegi natężenia dźwięku w czasie) na funkcje w dziedzinie częstotliwości (np.\ natężenia dźwięku dla poszczególnych częstotliwości). Jednowymiarową transformatę możemy zapisać jako funkcje $ f: \mathbb{R} \to \mathbb{C} $ za pomocą wzoru:
+funkcji z dziedziny czasu (np.\ przebiegi natężenia dźwięku w czasie) na funkcje w dziedzinie częstotliwości (np.\ natężenia dźwięku dla poszczególnych częstotliwości). Jednowymiarową transformatę możemy zapisać jako funkcje $ f: \mathbb{R} \to \mathbb{C} $ za pomocą wzoru\cite{math_phys}:
 
 \begin{equation}
-    \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) \exp{(-2 \pi i x \xi)} \ dx, \ \ \forall \xi \in \mathbb{R}
+    \hat{f}(\omega) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) \exp{(- i \omega x)} \ dx, \ \ \forall \omega \in \mathbb{R}
 \end{equation}
 
-gdzie $i$ oznacza jednostkę urojoną a jeżeli $x$ oznacza wartości należące do dziedziny badanej funkcji (W przykładzie badania natężenia dźwięku od czasu będzie miał jednostkę czasu), $f(x)$ jest wartością badanej funkcji dla danego $x$ a $\xi$ oznacza częstotliwość (w przypadku gdy $x$ jest czasem mierzonym w sekundach $\xi$ będzie miało jednostkę Hz)
+gdzie $i$ oznacza jednostkę urojoną a jeżeli $x$ oznacza wartości należące do dziedziny badanej funkcji (W przykładzie badania natężenia dźwięku od czasu będzie miał jednostkę czasu), $f(x)$ jest wartością badanej funkcji dla danego $x$ a $\omega$ oznacza częstotliwość (w przypadku gdy $x$ jest czasem mierzonym w sekundach $\omega$ będzie miało jednostkę Hz)
 q
 % TODO: Poco sie to robi 
 
 \subsection{Odwrotna transformata Fouriera}
 
-W niektórych sytuacjach możliwe jest odwrócenie transformaty w celu uzyskania oryginalnego sygnału za pomocą tzw. odwrotnej transformaty Fouriera opisanej wzorem:
+W niektórych sytuacjach możliwe jest odwrócenie transformaty w celu uzyskania oryginalnego sygnału za pomocą tzw. odwrotnej transformaty Fouriera opisanej wzorem\cite{math_phys}:
 
 \begin{equation}
-f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) \exp{(2 \pi i x \xi)} \ d\xi, \ \ \forall x \in \mathbb{R}
+f(x) = \frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} \hat{f}(\omega) \exp{( i \omega x)} \ d\omega, \ \ \forall x \in \mathbb{R}
 \end{equation}
 
 gdzie $\hat{f}$ oznacza wynik transformaty fouriera dla funkcji $f$
 
-\subsection{Transformaty wielowymiarowe}
-
-Transformata Fouriera może zostać uogólniona do $n$ wymiarów korzystając z wzoru:
-
-\begin{equation}
-    \hat{f}(k) = \frac{1}{{(2\pi)}^\frac{n}{2}} \int f(r) \exp{(-ikr)} d^n r
-\end{equation}
-
-w którym $k=[k_1,k_2,\ldots, k_n]$
-
 \subsection{Dyskretne transformaty Fouriera}
 Dyskretyzacja transformaty Fouriera pozwala na zastosowanie tradycyjnej transformaty do analizy sygnalów mierzonych przez instrumenty (instrument pomiarowy generować będzie dyskretne próbki danych a nie ciągłą funkcje).
-Dyskretna transformatę możemy opisać za pomocą sumy przekształcającej ciąg próbek jakiegoś sygnału $[x_0, x_1, \ldots, x_{N-1}]$ gdzie $x_i \in \mathbb{R}$ w ciąg harmonicznych tego sygnału oznaczanych: $[X_0, X_1, \ldots, X_{N-1}]$ gdzie $X_n \in \mathbb{C}$ danej wzorem:
+Dyskretna transformatę możemy opisać za pomocą sumy przekształcającej ciąg próbek jakiegoś sygnału $[x_0, x_1, \ldots, x_{N-1}]$ gdzie $x_i \in \mathbb{R}$ w ciąg harmonicznych tego sygnału oznaczanych: $[X_0, X_1, \ldots, X_{N-1}]$ gdzie $X_n \in \mathbb{C}$ danej wzorem \cite{python_numerical} :
 
 \begin{equation}
     X_k = \sum_{n=0}^{N-1} x_n \exp{\left(\frac{-i k n 2\pi}{N}\right)} , \ 0 \le k \le N - 1
@@ -60,11 +58,36 @@ Dyskretna transformatę możemy opisać za pomocą sumy przekształcającej cią
 
 gdzie $k$ to numer badanej harmonicznej a $N$ to liczba próbek w sygnale.
 
+\subsection{Transformaty wielowymiarowe}
+
+Transformata Fouriera może zostać uogólniona do $n$ wymiarów korzystając z wzoru \cite{math_phys}:
+
+\begin{equation}
+    \hat{f}(k) = \frac{1}{{(2\pi)}^\frac{n}{2}} \int f(r) \exp{(-ikr)} d^n r
+\end{equation}
+
+w którym $k=[k_1,k_2,\ldots, k_n]$
+
+a jej odwrotność do 
+
+\begin{equation}
+    f(r) = \frac{1}{{(2\pi)}^\frac{n}{2}} \int \hat{f}(k) \exp{(ikr)} d^n k
+\end{equation}
+
+
+\subsection{Szybka transformata Fouriera} 
+Tzw szybkie transformacje Fouriera to zbiór algorytmów mających na celu przspieszenie działania standardowej DFT
+\cite{fft_algo_wiki}. Najczęściej stosowanym algorytmem z tej rodziny jest algorytm Cooley'a\-Tukey'a  umożliwiający poprawienie złożoności czasowej DFT z $O(n^2)$ do $O(n \log n)$\cite{marchewczyk}  wykorzystując jej wewnętrzną symetrię i używając standardowej DFT tylko dla próbek o długości mniejszej od pewnego zadanego maksimum. Jego ograniczeniem jest wymaganie aby długość sygnału była potęgą 2\cite{python_numerical}.  
+
+
+% TODO: FFT section troche o 
+
+
 \section{Analiza sygnału za pomocą transformaty Fouriera}
 
-Jednowymiarowa sykretna transformata Fouriera moze zostac wykorzystana do analizy i modyfikacji funkcji przebiegu czasowego sygnalu.
+Jednowymiarowa sykretna transformata Fouriera może zostać wykorzystana do analizy i modyfikacji funkcji przebiegu czasowego sygnalu.
 Dobry przykładem takiego zastosowania jest wykorzystanie DFT podczas analizy i obróbki sygnalu dźwiękowego.
-Umozliwia ona miedzy innymi na analize spektrum czestotliwosci w celu separacji sygnalow skladowych. Natomiast w polaczeniu z IDFT moze zostac wykorzytana w celu zmiany sygnalu wejsciowgo (np. w celu usuniecia szumu na danej czestotliwosci lub wzmocnienia sygnalu na innej)
+Umożliwia ona miedzy innymi na analizę spektrum częstotliwości w celu separacji sygnałów składowych. Natomiast w połączeniu z IDFT moze zostać wykorzystana w celu zmiany sygnalu wejściowego (np. w celu usuniecia szumu na danej częstotliwości lub wzmocnienia sygnalu na innej)
 
 % TODO: Zadeklarować gdzieś te skróty
 \subsection{Analiza sprawności implementacji DFT i IDFT }
@@ -75,7 +98,8 @@ W celu analizy sygnalu podanego w zadaniu zaimplementowane zostały DFT i IDFT. 
 
 \subsubsection{Badanie sygnału o znanych składowych}
 
-W celu zbadania poprawnosci implementacji DFT wygenerowano 3 testowe sygnaly na przedziale od $0$ do $10 \pi$ kazdy z nich zawiera $1000$ probek (ich przebiegi czasowe przedstawione zostaly na rysunku) % TODO: Dodac raw sygnaly i numer rysunku 
+W celu zbadania poprawności implementacji DFT wygenerowano 3 testowe sygnały na przedziale od $0$ do $10 \pi$ każdy z nich zawiera $100$ probek (ich przebiegi czasowe przedstawione zostały na rysunku) 
+% TODO: Dodać raw sygnały i numer rysunku 
 
 \begin{enumerate}
     % TODO: This is not correct
@@ -84,38 +108,97 @@ W celu zbadania poprawnosci implementacji DFT wygenerowano 3 testowe sygnaly na 
     \item Złożenie funkcji $1$ i funkcji $2$
 \end{enumerate}
 
-powinnismy wiec otrzymac maxima transformaty sygnałów w $x=5$ dla sygnalu $1$ i $x=10$ dla sygnalu $2$ o wartości około $f(x)=0.5$. Dla ich zlozenia transformata powinna natomiast wygladac jak sum tych wykresow. Wyniki przedstawione na rysunku: 
-% TODO: dodac rysunek z numerem i informacje o wycieciu tylko kawalka
-Z duza dokldanoscia 
-% TODO: jaka
 
-zgadzaja sie z oczekiwanymi wynikami. Co argumentuje poprawnosc implementacji dft.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{wave_raw.png}
+\end{figure}
 
-W celu sprawdzenia poprawnosci IDFT wyniki tej ww. transformacji zostana nastepnie poddane transfomacji odwrotnej a uzyskany sygnal powinien byc zblizony do sygnalu oryginalnego. Wyniki IDFT porownane z sygnalem orginlanym przedstawiono na 
+powinniśmy wiec otrzymać maxima transformaty sygnałów w $x=5$ dla sygnalu $1$ i $x=10$ dla sygnalu $2$ o wartości około $f(x)=0.5$. Dla ich złożenia transformata powinna natomiast wyglądać jak sum tych wykresów. Wyniki przedstawione na rysunku ? 
+Z duża dokładnością zgadzaja sie z oczekiwanymi wynikami. Co argumentuje poprawność implementacji dft.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{wave_transformed.png}
+\end{figure}
+
+
+% TODO: dodać rysunek z numerem i informacje o wycięciu tylko kawalka
+% TODO: jaka dokladnoscia
+
+W celu sprawdzenia poprawności IDFT wyniki tej ww. transformacji zostaną nastepnie poddane transformacji odwrotnej a uzyskany sygnał powinien byc zbliżony do sygnalu oryginalnego. Wyniki IDFT porównane z sygnalem oryginalnym przedstawiono na 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{wave_reversed.png}
+\end{figure}
+
 % TODO dodaj rysunek 
 
-% TODO Wykres rozicy miedzy oryginalnym a odwroconym
+% TODO Wykres ronicy miedzy oryginalnym a odwróconym
 
 \subsubsection{Porównanie wyników z implementacja biblioteki SciPy}
 
-Droga zastosowana metoda badania poprawnosci implementacji jest porownanie wynikow wygenerowanych dla danego zestawu danych z wynikiami otrzymanymi po aplikowaniu implementacji dft i idft znajdujacych sie w bibilotece SciPy. 
-Wykorzytsany do tego zostanie plik dane\_10.in.
+Droga zastosowana metoda badania poprawności implementacji jest porównanie wyników wygenerowanych dla danego zestawu danych z wynikiami otrzymanymi po aplikowaniu implementacji dft i idft znajdujących sie w bibilotece SciPy \cite{scipy_fft}. 
+Wykorzystany do tego zostanie plik dane\_10.in.
 
-% TODO Wkleic i zlinkowac orginalny
-% TODO Wkleiuc i zlinkowac moj i python obok siebbie transformed
-% TODO Wkleiuc i zlinkowac moj i python obok siebbie reversed
-% TODO WYkres roznicy transfoemd
-% TODO WYkres roznicy inversed
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.00\textwidth]{raw_python_comp.png}
+\end{figure}
 
-% TODO Jakich funckcji uzyto w pythonie
 
-Rysunki ? jasno obrazuja bardzo wysoki stopien podobienstwa pomiedzy wynikami testowanej implementacji i implementacji w bibilotece python (wyniki fft w pythonie poddane zostaly normalizaci poprzez podzielnie wszystkich wartości przez ilosc probek poniewaz testowana implementacja stosuje taki zabieg)
+% TODO Wkleić i linkować oryginalny
+% TODO Wkleić i linkować moj i python obok siebie transformed
+% TODO Wkleić i linkować moj i python obok siebie reversed
+% TODO WYkres rożnicy transformed
+% TODO WYkres rożnicy inverses
+
+% TODO Jakich funkcji użyto w pythonie
+
+Rysunki ? jasno obrazują bardzo wysoki stopień podobienstwa pomiędzy wynikami testowanej implementacji i implementacji w bibilotece python (wyniki fft w pythonie poddane zostaly normalizaci poprzez podzielnie wszystkich wartości przez ilosc probek poniewaz testowana implementacja stosuje taki zabieg)
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{transfomed_pcomp.png}
+\end{figure}
+    
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{inversed_pcomp.png}
+\end{figure}
+    
 
 % TODO: jaki stopien podobienstwa
 
-
-
 \subsection{Analiza zadanego sygnału}
+
+% TODO Dodac jego raw rysunki
+Na rysunkach ? przedstawiono przebiegi czasowe zadanych sygnalow ($10$, $33$ i dwu wymiarowy $6$) ktore nastepnie poddane zostana analizie.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{10_raw.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{10_transformed.png}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{33_raw.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{33_transformed.png}
+\end{figure}
+
+
 
 \subsubsection{Sygnal 1 wymiarowy}
 
@@ -123,6 +206,9 @@ Rysunki ? jasno obrazuja bardzo wysoki stopien podobienstwa pomiedzy wynikami te
 
 \subsection{Wnioski i podsumowanie}
 
+\pagebreak
+
+\printbibliography
 
 \end{document}
 
