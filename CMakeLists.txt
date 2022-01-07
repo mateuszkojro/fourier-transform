@@ -206,6 +206,9 @@ add_executable(raw_signal src/raw_signals.cpp)
 target_link_libraries(raw_signal PUBLIC ${LIBRARIES_TO_LINK})
 
 
+add_executable(python_comparasion src/python_comparasion.cpp)
+target_link_libraries(python_comparasion PUBLIC ${LIBRARIES_TO_LINK})
+
 
 if(${WITH_TESTS})
     add_executable(tests test/test_main.cpp)
