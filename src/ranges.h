@@ -22,7 +22,7 @@ static std::vector<double> linspace(double (*f)(double), double from, double to,
   return results;
 }
 
-std::vector<int64_t> range(int64_t from, int64_t to, int64_t step=1) {
+std::vector<int64_t> range(int64_t from, int64_t to, int64_t step = 1) {
   std::vector<int64_t> result;
   result.reserve((to - from) / step);
   for (int64_t i = from; i < to; i += step) { result.push_back(i); }
@@ -43,8 +43,9 @@ std::vector<std::pair<double, double>> zip(const std::vector<double>& v1,
   return result;
 }
 
-std::vector<std::pair<size_t, double>> enumerate(const std::vector<double>& v) {
-  std::vector<std::pair<size_t, double>> result(v.size());
+template<class T>
+std::vector<std::pair<size_t, T>> enumerate(const std::vector<T>& v) {
+  std::vector<std::pair<size_t, T>> result(v.size());
 
   for (size_t i = 0; i < v.size(); i++) { result[i] = std::make_pair(i, v[i]); }
 
