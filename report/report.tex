@@ -62,10 +62,35 @@ gdzie $k$ to numer badanej harmonicznej a $N$ to liczba próbek w sygnale.
 
 \section{Analiza sygnału za pomocą transformaty Fouriera}
 
+Jednowymiarowa sykretna transformata Fouriera moze zostac wykorzystana do analizy i modyfikacji funkcji przebiegu czasowego sygnalu.
+Dobry przykładem takiego zastosowania jest wykorzystanie DFT podczas analizy i obróbki sygnalu dźwiękowego.
+Umozliwia ona miedzy innymi na analize spektrum czestotliwosci w celu separacji sygnalow skladowych. Natomiast w polaczeniu z IDFT moze zostac wykorzytana w celu zmiany sygnalu wejsciowgo (np. w celu usuniecia szumu na danej czestotliwosci lub wzmocnienia sygnalu na innej)
+
 % TODO: Zadeklarować gdzieś te skróty
 \subsection{Analiza sprawności implementacji DFT i IDFT }
 
+\subsubsection{Wykorzystane narzędzia}
+
+W celu analizy sygnalu podanego w zadaniu zaimplementowane zostały DFT i IDFT. Wykorzystano język programowania C++ w standardzie 14 (ISO/IEC $14882$) kompilowany za pomocą kompilatora MSVC w wersji $19.29.30136$
+
 \subsubsection{Badanie sygnału o znanych składowych}
+
+W celu zbadania poprawnosci implementacji DFT wygenerowano 3 testowe sygnaly na przedziale od $0$ do $10 \pi$ kazdy z nich zawiera $1000$ probek (ich przebiegi czasowe przedstawione zostaly na rysunku) % TODO: Dodac raw sygnaly i numer rysunku 
+
+\begin{enumerate}
+    % TODO: This is not correct
+    \item Funkcja określona wzorem $f(t) = \sin(t)$
+    \item Funkcja określona wzorem $f(t) = \sin(2t)$
+    \item Złożenie funkcji $1$ i funkcji $2$
+\end{enumerate}
+
+powinnismy wiec otrzymac maxima transformaty sygnałów w $x=5$ dla sygnalu $1$ i $x=10$ dla sygnalu $2$ o wartości około $f(x)=0.5$. Dla ich zlozenia transformata powinna natomiast wygladac jak sum tych wykresow. Wyniki przedstawione na rysunku: % TODO: dodac rysunek z numerem
+Z duza dokldanoscia % TODO: jaka
+zgadzaja sie z oczekiwanymi wynikami. Co argumentuje poprawnosc implementacji dft.
+
+W celu sprawdzenia poprawnosci IDFT wyniki tej ww. transformacji zostana nastepnie poddane transfomacji odwrotnej a uzyskany sygnal powinien byc zblizony do sygnalu oryginalnego. Wyniki IDFT porownane z sygnalem orginlanym przedstawiono na % TODO dodaj rysunek 
+
+
 
 \subsubsection{Porównanie wyników z implementacja biblioteki SciPy}
 
