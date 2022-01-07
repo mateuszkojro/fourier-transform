@@ -1,0 +1,51 @@
+\documentclass{artikel3}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage[titletoc,title]{appendix}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+\usepackage{graphicx,float}
+\usepackage{circuitikz}
+
+\title{Transformata Fouriera}
+\author{Mateusz Kojro}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Podstawa teoretyczna}
+
+\subsection{Transformata Fouriera}
+Transformacje Fourierowskie to dziedzina transformacji pozwalających na przekształcanie
+funkcji z dziedziny czasu (np.\ przebiegi natężenia dźwięku w czasie) na funkcje w dziedzinie częstotliwości (np.\ natężenia dźwięku dla poszczególnych częstotliwości). Jednowymiarową transformatę możemy zapisać jako funkcje $ f: \mathbb{R} \to \mathbb{C} $ za pomocą wzoru:
+
+\begin{equation}
+    \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) \exp{(-2 \pi i x \xi)} \ dx, \ \ \forall \xi \in \mathbb{R}
+\end{equation}
+
+gdzie $i$ oznacza jednostkę urojoną a jeżeli $x$ oznacza wartości należące do dziedziny badanej funkcji (W przykładzie badania natężenia dźwięku od czasu będzie miał jednostkę czasu), $f(x)$ jest wartością badanej funkcji dla danego $x$ a $\xi$ oznacza częstotliwość (w przypadku gdy $x$ jest czasem mierzonym w sekundach $\xi$ będzie miało jednostkę Hz)
+
+% TODO: Poco sie to robi 
+
+\subsection{Odwrotna transformata Fouriera}
+
+W niektórych sytuacjach możliwe jest odwrócenie transformaty w celu uzyskania oryginalnego sygnału
+
+
+\subsection{Transformaty wielowymiarowe}
+
+\subsection{Dyskretne transformaty Fouriera}
+
+
+
+
+
+
+
+\section{Transformaty Dyskretne}
+
+
+\end{document}
