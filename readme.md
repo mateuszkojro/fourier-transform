@@ -5,3 +5,4 @@
 <https://docs.scipy.org/doc/scipy/tutorial/fft.html>
 <https://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/>
 <https://pl.wikipedia.org/wiki/Algorytm_Cooleya-Tukeya>
+<https://en.wikipedia.org/wiki/Fourier_transform>
