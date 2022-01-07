@@ -50,7 +50,7 @@ Transformata Fouriera może zostać uogólniona do $n$ wymiarów korzystając z 
 
 w którym $k=[k_1,k_2,\ldots, k_n]$
 
-\subsection*{Dyskretne transformaty Fouriera}
+\subsection{Dyskretne transformaty Fouriera}
 Dyskretyzacja transformaty Fouriera pozwala na zastosowanie tradycyjnej transformaty do analizy sygnalów mierzonych przez instrumenty (instrument pomiarowy generować będzie dyskretne próbki danych a nie ciągłą funkcje).
 Dyskretna transformatę możemy opisać za pomocą sumy przekształcającej ciąg próbek jakiegoś sygnału $[x_0, x_1, \ldots, x_{N-1}]$ gdzie $x_i \in \mathbb{R}$ w ciąg harmonicznych tego sygnału oznaczanych: $[X_0, X_1, \ldots, X_{N-1}]$ gdzie $X_n \in \mathbb{C}$ danej wzorem:
 
@@ -84,15 +84,35 @@ W celu zbadania poprawnosci implementacji DFT wygenerowano 3 testowe sygnaly na 
     \item Złożenie funkcji $1$ i funkcji $2$
 \end{enumerate}
 
-powinnismy wiec otrzymac maxima transformaty sygnałów w $x=5$ dla sygnalu $1$ i $x=10$ dla sygnalu $2$ o wartości około $f(x)=0.5$. Dla ich zlozenia transformata powinna natomiast wygladac jak sum tych wykresow. Wyniki przedstawione na rysunku: % TODO: dodac rysunek z numerem
-Z duza dokldanoscia % TODO: jaka
+powinnismy wiec otrzymac maxima transformaty sygnałów w $x=5$ dla sygnalu $1$ i $x=10$ dla sygnalu $2$ o wartości około $f(x)=0.5$. Dla ich zlozenia transformata powinna natomiast wygladac jak sum tych wykresow. Wyniki przedstawione na rysunku: 
+% TODO: dodac rysunek z numerem i informacje o wycieciu tylko kawalka
+Z duza dokldanoscia 
+% TODO: jaka
+
 zgadzaja sie z oczekiwanymi wynikami. Co argumentuje poprawnosc implementacji dft.
 
-W celu sprawdzenia poprawnosci IDFT wyniki tej ww. transformacji zostana nastepnie poddane transfomacji odwrotnej a uzyskany sygnal powinien byc zblizony do sygnalu oryginalnego. Wyniki IDFT porownane z sygnalem orginlanym przedstawiono na % TODO dodaj rysunek 
+W celu sprawdzenia poprawnosci IDFT wyniki tej ww. transformacji zostana nastepnie poddane transfomacji odwrotnej a uzyskany sygnal powinien byc zblizony do sygnalu oryginalnego. Wyniki IDFT porownane z sygnalem orginlanym przedstawiono na 
+% TODO dodaj rysunek 
 
-
+% TODO Wykres rozicy miedzy oryginalnym a odwroconym
 
 \subsubsection{Porównanie wyników z implementacja biblioteki SciPy}
+
+Droga zastosowana metoda badania poprawnosci implementacji jest porownanie wynikow wygenerowanych dla danego zestawu danych z wynikiami otrzymanymi po aplikowaniu implementacji dft i idft znajdujacych sie w bibilotece SciPy. 
+Wykorzytsany do tego zostanie plik dane\_10.in.
+
+% TODO Wkleic i zlinkowac orginalny
+% TODO Wkleiuc i zlinkowac moj i python obok siebbie transformed
+% TODO Wkleiuc i zlinkowac moj i python obok siebbie reversed
+% TODO WYkres roznicy transfoemd
+% TODO WYkres roznicy inversed
+
+% TODO Jakich funckcji uzyto w pythonie
+
+Rysunki ? jasno obrazuja bardzo wysoki stopien podobienstwa pomiedzy wynikami testowanej implementacji i implementacji w bibilotece python (wyniki fft w pythonie poddane zostaly normalizaci poprzez podzielnie wszystkich wartości przez ilosc probek poniewaz testowana implementacja stosuje taki zabieg)
+
+% TODO: jaki stopien podobienstwa
+
 
 
 \subsection{Analiza zadanego sygnału}
